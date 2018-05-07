@@ -1,0 +1,132 @@
+﻿<div class="" ng-controller="quickQuoteController">
+
+    <div class="pull-left col-xs-7 col-sm-7 col-md-7">
+        <div class="page-header"><div class="panel-title"><b>Get Quote </b></div></div>
+        <div class="panel panel-default">
+
+            <div class="panel-body" data-ng-form name="frmQuote">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <label for="firstname">First Name <span class="mandatory">*</span></label>
+                        <input type="text" class="form-control" id="firstname" name="firstname" data-ng-model="quoteRequest.FirsName" placeholder="First Name" required>
+                        <span ng-show="frmQuote.firstname.$touched && frmQuote.firstname.$invalid" class="error mandatory">FirstName is required.</span>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <label for="lastname">Last Name<span class="mandatory">*</span></label>
+                        <input type="text" class="form-control" id="lastname" name="lastname" data-ng-model="quoteRequest.LastName" placeholder="Last Name" required>
+                        <span ng-show="frmQuote.lastname.$touched && frmQuote.lastname.$invalid" class="error mandatory">LastName is required.</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" data-ng-model="quoteRequest.Email" placeholder="Email" required>
+                        <span class="error mandatory" ng-show="frmQuote.email.$error.email">
+                            Valid email is required!
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="adjust-label">Telephone/Mobile</label>
+                    <div class="">
+                        <div class="input-group-prepend col-xs-2 col-sm-2 col-md-2">
+                            <span class="input-group-btn ">
+                                <select class="btn" data-ng-model="quoteRequest.SelectedCountryCode" data-ng-options="countrycode.dial_code for countrycode in countrycodes"></select>
+                            </span>
+                        </div>
+                        <div class="col-xs-10 col-sm-10 col-md-10">
+                            <input type="number" class="form-control" id="phone" name="phone" data-ng-model="quoteRequest.Phone" required>
+                            <span class="error mandatory" ng-show="frmQuote.phone.$error.number">
+                                Valid phone number is required!
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <label for="fromcurrencycode">From Currency <span class="mandatory">*</span></label>
+                        <select id="fromcurrencycode" class="form-control" data-ng-model="quoteRequest.SelectedFromCurrencyCode" data-ng-change="swapFromCurrency('{{quoteRequest.SelectedFromCurrencyCode}}')">
+                            <option ng-repeat="fromCurrencyCode in fromCurrencyCodes" value="{{fromCurrencyCode.code}}">{{fromCurrencyCode.name+' ('+fromCurrencyCode.code+')'}}</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <label for="tocurrency">To Currency <span class="mandatory">*</span></label>
+                        <select id="tocurrency" class="form-control" data-ng-model="quoteRequest.SelectedToCurrencyCode" data-ng-change="swapToCurrency('{{quoteRequest.SelectedToCurrencyCode}}')">
+                            <option ng-repeat="toCurrencyCode in toCurrencyCodes" value="{{toCurrencyCode.code}}">{{toCurrencyCode.name+' ('+toCurrencyCode.code+')'}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <label for="amount">Amount<span class="mandatory">*</span></label>
+                        <input type="number" class="form-control" id="amount" name="amount" value="0" data-ng-model="quoteRequest.FromAmount" required>
+                        <span class="error mandatory" ng-show="frmQuote.amount.$touched && frmQuote.amount.$invalid">
+                            Amount is required.
+                        </span>
+                    </div>
+                    <div class="form-group col-xs-6 col-sm-6 col-md-6">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4 col-sm-4 col-md-4"></div>
+                    <div class="col-xs-4 col-sm-4 col-md-4">
+                        <label></label>
+                        <input type="button" ng-disabled="frmQuote.firstname.$invalid || frmQuote.lastname.$invalid || frmQuote.email.$error.email || frmQuote.phone.$error.number || frmQuote.amount.$invalid" class="form-control btn btn-primary" id="getquote" value="Get Quote" data-ng-click="getQuote()">
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pull-right col-xs-5 col-sm-5 col-md-5">
+        <div class="page-header"><div class="panel-title"><b>Quick Quote</b></div></div>
+        <div class="panel panel-primary well">
+            <div class="row">
+                    <div class="col-xs-3 col-sm-3 col-md-3"></div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 text-center">
+                        <h4> <label>OFX Customer Rate</label></h4>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3"></div>
+                </div>
+            <div id="dvQuoteDetail" >                
+                <div class="row">
+                    <div class="col-xs-4 col-sm-4 col-md-4"></div>
+                    <div class="col-xs-4 col-sm-4 col-md-4">
+                        <label class="label-highlight-header color-header">{{quoteRequest.CustomerRate | number:2}}</label>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4"></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4 col-sm-4 col-md-4"></div>
+                    <div class="col-xs-4 col-sm-4 col-md-4">
+                        <label>From</label> <br />
+                        <label class="label-highlight-title"><b>{{quoteRequest.SelectedFromCurrencyCode}} </b></label>
+                        <label class="label-highlight-title color-title">{{quoteRequest.FromAmount | number:2}}</label>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-4 col-sm-4 col-md-4"></div>
+                    <div class="col-xs-4 col-sm-4 col-md-4">
+                        <label>To</label><br />
+                        <label class="label-highlight-title"><b>{{quoteRequest.SelectedToCurrencyCode}} </b></label>
+                        <label class="label-highlight-title color-title">{{quoteRequest.ToAmount | number:2}}</label>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-4 col-sm-4 col-md-4"></div>
+                    <div class="col-xs-4 col-sm-4 col-md-4">
+                        <label></label>
+                        <input type="button" class="form-control btn btn-primary" id="getquote" value="Start New Quote" data-ng-click="refreshQuote()">
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

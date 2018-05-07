@@ -1,0 +1,105 @@
+﻿html {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    font-size: 12px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+/*input,
+select,
+textarea {
+    max-width: 280px;
+}*/
+
+img {
+    vertical-align: super;
+}
+
+.nav {
+    /*padding: 15px;*/
+    background-color: #676667;
+}
+
+    .nav a {
+        padding: 5px;
+        color: white;
+        font-size: 14px;
+    }
+
+.container-fluid {
+    margin-top: -40px;
+}
+
+.mandatory {
+    color: red;
+}
+
+.input-group-btn select {
+    border-color: #ccc;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    background-color: #f5f5f5;
+}
+
+.adjust-label {
+    margin-left: 14px;
+}
+
+.panel-title {
+    margin-bottom: -10px;
+}
+
+.page-header {
+    border-bottom-color: #C5E7FA !important;
+    margin: 10px 0 20px !important;
+}
+
+label {
+    margin-top: 10px !important;
+    margin-bottom: 0px !important;
+}
+
+.label-highlight-header {
+    /*color:#4CB28C;*/
+    font-size: 26px;
+    margin: 0px;
+}
+
+.label-highlight-title {
+    /*color:#367FAF;*/
+    font-size: 16px;
+}
+
+.btn {
+    font-size: 12px !important;
+}
+
+.color-header {
+    color: #4CB28C;
+}
+
+.color-title {
+    color: #367FAF;
+}
+.error{
+    font-size:10px; 
+}
